@@ -14,9 +14,12 @@ import Profile from "./components/Profile/Profile";
 import Error from "./components/Error/Error";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Login from "./components/Login/Login";
+import Admin from "./components/Admin/Admin";
+import AdminProfile from "./components/Admin/AdminProfile";
 
 function App() {
   const isAuthenticated = true;
+  const isAdmin = true;
   return (
     <>
       <BrowserRouter>
@@ -26,6 +29,22 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
+
+          {/* Admin Route */}
+          <Route
+            element={
+              <ProtectedRoute
+                isAuthenticated={isAuthenticated}
+                isAdmin={isAdmin}
+                adminRoute={true}
+              />
+            }
+          >
+            <Route path="admin" element={<Admin />}>
+              <Route path="profile" element={<AdminProfile />} />
+            </Route>
+          </Route>
+
           {/* Protected Routes */}
           <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
             <Route path="contact" element={<Contact />}>
