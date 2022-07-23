@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { Box, Container, Typography, TextField, Button } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 
 const Profile = () => {
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [name, setName] = useState();
   const [age, setAge] = useState();
+  const obj = {
+    name: "kamal",
+    age: 22,
+  };
+
   return (
     <Box sx={{ flexGrow: 1, p: 5 }}>
       <Container fixed>
@@ -32,6 +38,19 @@ const Profile = () => {
           variant="contained"
           sx={{ mt: 2 }}
           onClick={() => setSearchParams({ name, age })}
+        >
+          Submit
+        </Button>
+
+        <Button
+          variant="contained"
+          color= "secondary"
+          sx={{ mt: 2 }}
+          component={Link}
+          to={{
+            pathname: `/profile/${JSON.stringify(obj)}`,
+            query: obj,
+          }}
         >
           Submit
         </Button>
